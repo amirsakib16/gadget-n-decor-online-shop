@@ -5,8 +5,8 @@
 // ================================================================
 
 const SHEET_URL = "%VITE_SHEET_URL%";
-const DELIVERY_INSIDE  = 70;
-const DELIVERY_OUTSIDE = 130;
+const DELIVERY_INSIDE  = 80;
+const DELIVERY_OUTSIDE = 120;
 
 // Active delivery cost — updated by zone selector
 let DELIVERY = DELIVERY_INSIDE;
