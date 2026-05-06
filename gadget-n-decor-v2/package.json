@@ -1,0 +1,11 @@
+{
+  "name": "gadget-n-decor",
+  "version": "1.0.0",
+  "description": "Gadget N Decor — static shop with Google Sheets order backend",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
