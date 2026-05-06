@@ -252,7 +252,7 @@ function showToast(msg, type = "info") {
         <div class="card-name">${p.name}</div>
         <div class="card-desc">${p.description}</div>
         <div class="card-footer">
-          <div class="card-price">৳ ${p.price.toLocaleString()}<br><small>+ ৳70–130 delivery</small></div>
+          <div class="card-price">৳ ${p.price.toLocaleString()}<br><small>+ ৳80–120 delivery</small></div>
           <div class="card-arrow">→</div>
         </div>
       </div>`;
@@ -351,7 +351,7 @@ function refreshCheckoutTotals() {
   if (cart.length === 0) {
     document.querySelector(".checkout-page").innerHTML = `
       <div class="empty-state" style="padding-top:calc(var(--nav-h) + 4rem)">
-        <div style="font-size:3rem;margin-bottom:1rem">🛒</div>
+        <div style="font-size:3rem;margin-bottom:1rem"></div>
         <h2>Your cart is empty</h2>
         <p>Add some products before checking out.</p>
         <a href="/" class="btn btn-primary" style="margin-top:1.5rem;display:inline-flex">← Browse Products</a>
