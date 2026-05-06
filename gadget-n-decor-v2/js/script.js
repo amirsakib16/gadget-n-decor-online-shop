@@ -34,7 +34,7 @@ const products = {
     description: "Premium noise-cancelling headphones...",
     badge: "Best Seller",
     images: [
-      "/images/products/PACover.jpeg",
+      "/images/products/PAcover.jpeg",
       "/images/products/product_A.jpeg",
       "/images/products/product_A1.jpeg"
     ]
@@ -46,7 +46,7 @@ const products = {
     description: "Advanced health & fitness tracker...",
     badge: "New Arrival",
     images: [
-      "/images/products/PBCover.jpeg",
+      "/images/products/PBcover.jpeg",
       "/images/products/product_B.jpeg",
       "/images/products/product_B1.jpeg"
     ]
