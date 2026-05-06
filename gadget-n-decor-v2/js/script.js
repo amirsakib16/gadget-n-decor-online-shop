@@ -43,7 +43,7 @@ const products = {
     id: 2,
     name: "Q10 TWS MIDNIGHT BLACK Premium Edition",
     price: 1999,
-    description: "Advanced health & fitness tracker...",
+    description: "Premium noise-cancelling headphones...",
     badge: "New Arrival",
     images: [
       "/images/products/PBcover.jpeg",
