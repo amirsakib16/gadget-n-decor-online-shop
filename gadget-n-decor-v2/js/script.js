@@ -29,26 +29,26 @@ function onZoneChange(zone) {
 const products = {
   1: {
     id: 1,
-    name: "Wireless Headphones",
-    price: 4599,
-    description: "Premium noise-cancelling headphones with 30-hour battery life, 40mm drivers, and foldable design for on-the-go comfort.",
+    name: "Q10 TWS 2 IN 1 True Wireless Sterio",
+    price: 1999,
+    description: "Premium noise-cancelling headphones...",
     badge: "Best Seller",
     images: [
-      "https://picsum.photos/seed/hp1/600/600",
-      "https://picsum.photos/seed/hp2/600/600",
-      "https://picsum.photos/seed/hp3/600/600"
+      "/PACover.jpeg",
+      "/product_A.jpeg",
+      "/product_A1.jpeg"
     ]
   },
   2: {
     id: 2,
-    name: "Smart Watch",
-    price: 3299,
-    description: "Advanced health & fitness tracker with SpO2, heart rate, sleep monitoring, 7-day battery, and 50m water resistance.",
+    name: "Q10 TWS MIDNIGHT BLACK Premium Edition",
+    price: 1999,
+    description: "Advanced health & fitness tracker...",
     badge: "New Arrival",
     images: [
-      "https://picsum.photos/seed/sw1/600/600",
-      "https://picsum.photos/seed/sw2/600/600",
-      "https://picsum.photos/seed/sw3/600/600"
+      "/PBCover.jpeg",
+      "/product_B.jpeg",
+      "/product_B1.jpeg"
     ]
   }
 };
