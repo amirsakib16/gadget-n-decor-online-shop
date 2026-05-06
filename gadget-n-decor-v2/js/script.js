@@ -245,7 +245,7 @@ function showToast(msg, type = "info") {
     card.className = `product-card stagger-${i + 1}`;
     card.innerHTML = `
       <div class="card-image-wrap">
-        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.src='https://picsum.photos/seed/fb${p.id}/400/300'">
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
         ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ""}
       </div>
       <div class="card-body">
@@ -296,7 +296,7 @@ function showToast(msg, type = "info") {
   p.images.forEach((src, idx) => {
     const div = document.createElement("div");
     div.className = `thumb${idx === 0 ? " active" : ""}`;
-    div.innerHTML = `<img src="${src}" alt="View ${idx+1}" onerror="this.src='https://picsum.photos/seed/t${idx}${p.id}/120/120'">`;
+    div.innerHTML = `<img src="${src}" alt="View ${idx+1}">`;
     div.addEventListener("click", () => {
       mainImg.style.opacity = "0";
       setTimeout(() => { mainImg.src = src; mainImg.style.opacity = "1"; }, 180);
