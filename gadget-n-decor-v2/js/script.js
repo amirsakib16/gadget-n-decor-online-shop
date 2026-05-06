@@ -171,7 +171,7 @@ function renderCartDrawer() {
   if (cart.length === 0) {
     body.innerHTML = `
       <div class="cart-empty">
-        <div class="cart-empty-icon">🛒</div>
+        <div class="cart-empty-icon"></div>
         <p>Your cart is empty</p>
         <a href="/" onclick="closeCartDrawer()" class="btn btn-primary" style="margin-top:1.25rem;display:inline-flex">Browse Products</a>
       </div>`;
