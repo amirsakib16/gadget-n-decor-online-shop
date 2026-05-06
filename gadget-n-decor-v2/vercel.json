@@ -1,6 +1,6 @@
 {
-  "buildCommand": "node build.js",
-  "outputDirectory": ".",
+  "buildCommand": "node gadget-n-decor-v2/build.js",
+  "outputDirectory": "gadget-n-decor-v2",
   "installCommand": "echo 'no install needed'",
   "framework": null,
   "cleanUrls": true,
