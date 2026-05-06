@@ -2,8 +2,14 @@
   "name": "gadget-n-decor",
   "version": "1.0.0",
   "description": "Gadget N Decor — static shop with Google Sheets order backend",
+  "type": "module",
   "scripts": {
-    "build": "node build.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   },
   "engines": {
     "node": ">=18"
