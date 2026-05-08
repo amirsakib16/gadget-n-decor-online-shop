@@ -352,9 +352,10 @@ function selectColor(btn) {
 
 function getSelectedColor() {
   const el = document.querySelector(".color-btn.selected");
-  return el
-    ? el.querySelector(".color-name").textContent.trim()
-    : "";
+
+  if (!el) return "";
+
+  return el.querySelector(".color-name").textContent.trim();
 }
 
 function addToCartFromPage() {
@@ -461,20 +462,25 @@ async function submitOrder() {
   // Build one row per cart item — matches the single-product Buy Now path
   const timestamp = new Date().toISOString();
 const rows = cart.map(item => ({
-    timestamp,
-    name,
-    phone,
-    address,
-    note,
-    zone,
-    product:    item.name,
-    productId:  item.id,
-    color:      item.color || "",
-    quantity:   item.qty,
-    unitPrice:  item.price,
-    delivery,
-    total:      item.price * item.qty + delivery
-  }));
+  timestamp,
+  name,
+  phone,
+  address,
+  note,
+  zone,
+
+  product: item.name,
+  productId: item.id,
+
+  color: item.color || "",
+
+  quantity: item.qty,
+  unitPrice: item.price,
+
+  delivery: 0,
+
+  total: item.price * item.qty
+}));
 
   // Also attach order-level summary to first row
   rows[0].orderSubtotal = sub;
