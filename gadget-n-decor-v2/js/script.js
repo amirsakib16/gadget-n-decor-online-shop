@@ -200,7 +200,7 @@ function renderCartDrawer() {
         <img src="${item.image}" alt="${item.name}" onerror="this.src='https://picsum.photos/seed/e${item.id}/80/80'">
       </div>
       <div class="cart-item-info">
-        <<div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-name">${item.name}</div>
         ${item.color ? `<div class="cart-item-color">Color: ${item.color}</div>` : ""}
         <div class="cart-item-price">৳ ${item.price.toLocaleString()} each</div>
         <div class="cart-item-controls">
@@ -352,7 +352,9 @@ function selectColor(btn) {
 
 function getSelectedColor() {
   const el = document.querySelector(".color-btn.selected");
-  return el ? el.dataset.value : "";
+  return el
+    ? el.querySelector(".color-name").textContent.trim()
+    : "";
 }
 
 function addToCartFromPage() {
@@ -505,3 +507,5 @@ const rows = cart.map(item => ({
 document.addEventListener("input", e => {
   if (e.target.classList.contains("field-error")) e.target.classList.remove("field-error");
 });
+
+
