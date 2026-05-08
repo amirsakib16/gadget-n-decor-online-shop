@@ -33,6 +33,10 @@ const products = {
     price: 1999,
     description: "Premium noise-cancelling headphones...",
     badge: "Best Seller",
+    colors: [
+      { label: "White",     value: "white" },
+      { label: "Off White", value: "off-white" }
+    ],
     images: [
       "/images/products/PAcover.jpeg",
       "/images/products/product_A.jpeg",
@@ -43,8 +47,12 @@ const products = {
     id: 2,
     name: "Q10 TWS MIDNIGHT BLACK Premium Edition",
     price: 1999,
-    description: "Premium noise-cancelling headphones...",
+    description: "Advanced health & fitness tracker...",
     badge: "New Arrival",
+    colors: [
+      { label: "White", value: "white" },
+      { label: "Black", value: "black" }
+    ],
     images: [
       "/images/products/PBcover.jpeg",
       "/images/products/product_B.jpeg",
@@ -52,7 +60,6 @@ const products = {
     ]
   }
 };
-
 // ================================================================
 //  CART  — full stack, persisted in localStorage
 // ================================================================
@@ -74,27 +81,35 @@ function cartCount() {
   return getCart().reduce((s, i) => s + i.qty, 0);
 }
 
-function addToCart(product, qty) {
+function addToCart(product, qty, color) {
   const cart = getCart();
-  const idx  = cart.findIndex(i => i.id === product.id);
+  // Match by both id AND color so different colors are separate cart items
+  const idx  = cart.findIndex(i => i.id === product.id && i.color === color);
   if (idx > -1) {
     cart[idx].qty += qty;
   } else {
-    cart.push({ id: product.id, name: product.name, price: product.price, image: product.images[0], qty });
+    cart.push({
+      id:    product.id,
+      name:  product.name,
+      price: product.price,
+      image: product.images[0],
+      color: color || "",
+      qty
+    });
   }
   saveCart(cart);
   openCartDrawer();
   showToast("Added to cart", "success");
 }
 
-function removeFromCart(productId) {
-  saveCart(getCart().filter(i => i.id !== productId));
+function removeFromCart(productId, color) {
+  saveCart(getCart().filter(i => !(i.id === productId && i.color === color)));
   renderCartDrawer();
 }
 
-function updateCartQty(productId, delta) {
+function updateCartQty(productId, color, delta) {
   const cart = getCart();
-  const item = cart.find(i => i.id === productId);
+  const item = cart.find(i => i.id === productId && i.color === color);
   if (!item) return;
   item.qty = Math.max(1, item.qty + delta);
   saveCart(cart);
@@ -185,13 +200,14 @@ function renderCartDrawer() {
         <img src="${item.image}" alt="${item.name}" onerror="this.src='https://picsum.photos/seed/e${item.id}/80/80'">
       </div>
       <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
+        <<div class="cart-item-name">${item.name}</div>
+        ${item.color ? `<div class="cart-item-color">Color: ${item.color}</div>` : ""}
         <div class="cart-item-price">৳ ${item.price.toLocaleString()} each</div>
         <div class="cart-item-controls">
-          <button class="ci-btn" onclick="updateCartQty(${item.id}, -1)">−</button>
+          <button class="ci-btn" onclick="updateCartQty(${item.id}, '${item.color}', -1)">−</button>
           <span class="ci-qty">${item.qty}</span>
-          <button class="ci-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
-          <button class="ci-remove" onclick="removeFromCart(${item.id})" title="Remove">🗑</button>
+          <button class="ci-btn" onclick="updateCartQty(${item.id}, '${item.color}', 1)">+</button>
+          <button class="ci-remove" onclick="removeFromCart(${item.id}, '${item.color}')" title="Remove">🗑</button>
         </div>
       </div>
       <div class="cart-item-subtotal">৳ ${(item.price * item.qty).toLocaleString()}</div>
@@ -292,6 +308,20 @@ function showToast(msg, type = "info") {
   mainImg.alt = p.name;
   mainImg.onerror = () => { mainImg.src = `https://picsum.photos/seed/fb${p.id}/600/600`; };
 
+  // Render color selector
+  const colorWrap = document.getElementById("colorSelector");
+  if (colorWrap && p.colors && p.colors.length) {
+    colorWrap.innerHTML = `
+      <div class="color-label">Color</div>
+      <div class="color-btns">
+        ${p.colors.map(c => `
+          <button class="color-btn" data-value="${c.value}" onclick="selectColor(this)"
+            style="--swatch:${c.value === 'off-white' ? '#f5f0e8' : c.value}">
+            <span class="color-swatch"></span>
+            <span class="color-name">${c.label}</span>
+          </button>`).join("")}
+      </div>`;
+  }
   const gallery = document.getElementById("thumbnailGallery");
   p.images.forEach((src, idx) => {
     const div = document.createElement("div");
@@ -315,16 +345,34 @@ function changeQuantity(delta) {
   el.textContent = q;
 }
 
+function selectColor(btn) {
+  document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
+}
+
+function getSelectedColor() {
+  const el = document.querySelector(".color-btn.selected");
+  return el ? el.dataset.value : "";
+}
+
 function addToCartFromPage() {
   const p = window.currentProduct;
   if (!p) return;
-  addToCart(p, parseInt(document.getElementById("quantity").textContent));
+  const color = getSelectedColor();
+  if (p.colors && p.colors.length && !color) {
+    showToast("Please select a color", "error"); return;
+  }
+  addToCart(p, parseInt(document.getElementById("quantity").textContent), color);
 }
 
 function buyNow() {
   const p = window.currentProduct;
   if (!p) return;
-  addToCart(p, parseInt(document.getElementById("quantity").textContent));
+  const color = getSelectedColor();
+  if (p.colors && p.colors.length && !color) {
+    showToast("Please select a color", "error"); return;
+  }
+  addToCart(p, parseInt(document.getElementById("quantity").textContent), color);
   setTimeout(() => { closeCartDrawer(); window.location.href = "checkout"; }, 300);
 }
 
@@ -410,7 +458,7 @@ async function submitOrder() {
 
   // Build one row per cart item — matches the single-product Buy Now path
   const timestamp = new Date().toISOString();
-  const rows = cart.map(item => ({
+const rows = cart.map(item => ({
     timestamp,
     name,
     phone,
@@ -419,10 +467,11 @@ async function submitOrder() {
     zone,
     product:    item.name,
     productId:  item.id,
+    color:      item.color || "",
     quantity:   item.qty,
     unitPrice:  item.price,
     delivery,
-    total:      item.price * item.qty + delivery   // per-item total; overall order total below
+    total:      item.price * item.qty + delivery
   }));
 
   // Also attach order-level summary to first row
