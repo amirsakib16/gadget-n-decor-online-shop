@@ -477,7 +477,7 @@ const rows = cart.map(item => ({
   quantity: item.qty,
   unitPrice: item.price,
 
-  delivery: 0,
+  delivery: idx === 0 ? delivery : 0,
 
   total: item.price * item.qty
 }));
