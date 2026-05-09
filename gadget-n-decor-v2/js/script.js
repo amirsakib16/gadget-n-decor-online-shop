@@ -461,7 +461,7 @@ async function submitOrder() {
 
   // Build one row per cart item — matches the single-product Buy Now path
   const timestamp = new Date().toISOString();
-const rows = cart.map(item => ({
+const rows = cart.map((item, index) => ({
   timestamp,
   name,
   phone,
